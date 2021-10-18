@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:38:24 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/15 14:37:20 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/16 17:59:46 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <unistd.h>
 # include <sys/time.h>
 # include <pthread.h>
+
+# define FALSE 1
+# define TRUE 0
+# define MAX_PHILOSOPHERS 200
+# define NO_MAX_MEAL -1
+# define WAITING_TIME 1500
+# define LONG_WAITING_TIME 15000
 
 typedef struct s_philo
 {
@@ -33,6 +40,7 @@ typedef struct s_philo
 
 typedef struct s_info
 {
+	int				full;
 	int				nb_philo;
 	int				time_to_die;
 	int				time_to_eat;

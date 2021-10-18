@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:08:25 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/15 13:50:44 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/16 17:37:57 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,32 @@ int	init(t_info *info)
 		info->philo[i].info = info;
 		i++;
 	}
-	info->is_dead = 0;
+	info->is_dead = FALSE;
+	info->full = 0;
 	if (pthread_mutex_init(&(info->writing), NULL) != 0)
 		return (error(4));
-	return (0);
+	return (TRUE);
+}
+
+int	good_number_of_argument(int ac)
+{
+	return (ac == 5 || ac == 6);
 }
 
 int	main(int ac, char **av)
 {
 	t_info	info;
 
-	if (ac == 5 || ac == 6)
+	if (good_number_of_argument(ac))
 	{
-		if (!parsing(ac, av, &info))
-			return (1);
+		if (parsing(ac, av, &info) == FALSE)
+			return (FALSE);
 	}
 	else
 		return (error(2));
-	if (init(&info) == 1)
-		return (1);
-	if (starter(&info))
-		return (1);
-	return (0);
+	if (init(&info) == FALSE)
+		return (FALSE);
+	if (starter(&info) == FALSE)
+		return (FALSE);
+	return (TRUE);
 }
