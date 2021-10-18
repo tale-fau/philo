@@ -6,7 +6,7 @@
 #    By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/14 11:47:06 by tale-fau          #+#    #+#              #
-#    Updated: 2021/10/15 14:37:43 by tale-fau         ###   ########.fr        #
+#    Updated: 2021/10/18 15:41:19 by tale-fau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,21 +41,29 @@ FLAGS       =       -Wall -Wextra -Werror
 
 .c.o:
 					@${CC} ${FLAGS} -I${INCLUDES_DIR} -c $< -o ${<:.c=.o}
-					@echo "\x1b[32m[LOADED]\033[0m ${<:.s=.o}"
 
 all:			${NAME}
 
 ${NAME}:		${OBJS}
 						@${CC} ${FLAGS} -I${INCLUDES_DIR} -o ${NAME} ${OBJS}
+						@echo "\033[1;37m"
 						@echo "\nlibft.a has been created"
 						@echo "philo has been created"
+						@echo "\033[0;31m"
+						@cat .login.txt
+						@echo "\033[1;35m"
+						@cat .train.txt
+						@echo "\033[1;37m"
+						@echo "\ntchou tchou ;) c'est partit pour Philosophers !! Embarquement immédiat :D"
 
 clean:
 						@${RM} ${OBJS} ${OBJS_B}
+						@echo "\033[1;37m"
 						@echo "\n *.o files deleted\n"
 
 fclean:		clean
 						@${RM} ${NAME} ${NAME_B}
+						@echo "\033[1;37m"
 						@echo "\nPrograms The libft and philo have been deleted\n"
 
 re:		fclean all
