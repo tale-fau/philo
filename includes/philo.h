@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:38:24 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/16 17:59:46 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/21 18:01:22 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_philo
 	int				id;
 	int				right;
 	int				left;
-	int				meal;
+	int				meal_eaten;
 	long long		last_meal;
 	struct s_info	*info;
 }	t_philo;
@@ -49,6 +49,7 @@ typedef struct s_info
 	int				is_dead;
 	long long		time_start;
 	pthread_mutex_t	writing;
+	pthread_mutex_t	test;
 	t_philo			philo[200];
 	pthread_mutex_t	fork[200];
 }	t_info;

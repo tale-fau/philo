@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:08:25 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/16 17:37:57 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/21 18:02:22 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@ int	init(t_info *info)
 		info->philo[i].id = i;
 		info->philo[i].left = i;
 		info->philo[i].right = (info->philo[i].id + 1) % info->nb_philo;
-		info->philo[i].meal = 0;
+		info->philo[i].meal_eaten = 0;
 		info->philo[i].last_meal = 0;
 		info->philo[i].info = info;
 		i++;
 	}
 	info->is_dead = FALSE;
-	info->full = 0;
+	info->full = FALSE;
 	if (pthread_mutex_init(&(info->writing), NULL) != 0)
+		return (error(4));
+	if (pthread_mutex_init(&(info->test), NULL) != 0)
 		return (error(4));
 	return (TRUE);
 }

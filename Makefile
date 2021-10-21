@@ -6,7 +6,7 @@
 #    By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/14 11:47:06 by tale-fau          #+#    #+#              #
-#    Updated: 2021/10/18 15:41:19 by tale-fau         ###   ########.fr        #
+#    Updated: 2021/10/21 19:14:12 by tale-fau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ OBJS            =       ${SRCS:.c=.o}
 
 RM          =       rm -rf
 
-FLAGS       =       -Wall -Wextra -Werror
+FLAGS       =       -Wall -Wextra -Werror -g -fsanitize=thread
 
 .c.o:
 					@${CC} ${FLAGS} -I${INCLUDES_DIR} -c $< -o ${<:.c=.o}
