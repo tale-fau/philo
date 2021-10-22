@@ -6,11 +6,24 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:08:25 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/21 18:02:22 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/22 17:29:52 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+int	mutex_init(t_info *info)
+{
+	if (pthread_mutex_init(&(info->writing), NULL) != 0)
+		return (error(4));
+	if (pthread_mutex_init(&(info->dead_mut), NULL) != 0)
+		return (error(4));
+	if (pthread_mutex_init(&(info->meal_mut), NULL) != 0)
+		return (error(4));
+	if (pthread_mutex_init(&(info->last_meal_mut), NULL) != 0)
+		return (error(4));
+	return (TRUE);
+}
 
 int	init(t_info *info)
 {
@@ -31,10 +44,8 @@ int	init(t_info *info)
 	}
 	info->is_dead = FALSE;
 	info->full = FALSE;
-	if (pthread_mutex_init(&(info->writing), NULL) != 0)
-		return (error(4));
-	if (pthread_mutex_init(&(info->test), NULL) != 0)
-		return (error(4));
+	if (mutex_init(info) == FALSE)
+		return (FALSE);
 	return (TRUE);
 }
 

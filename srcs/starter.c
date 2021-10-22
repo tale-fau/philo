@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:08:31 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/21 19:21:20 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/22 18:25:58 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,16 @@ void	cantina(t_philo *philo)
 	display(info, philo->id, "has taken a fork. 1️⃣\n");
 	pthread_mutex_lock(&(info->fork[philo->right]));
 	display(info, philo->id, "has taken a fork. 2️⃣\n");
+	pthread_mutex_lock(&info->last_meal_mut);
 	philo->last_meal = find_time();
+	pthread_mutex_unlock(&info->last_meal_mut);
 	display(info, philo->id, "is eating. 🍝\n");
-	//ft_usleep(info->time_to_eat);
 	usleep(info->time_to_eat * 1000);
-	philo->meal_eaten++;
 	pthread_mutex_unlock(&(info->fork[philo->left]));
 	pthread_mutex_unlock(&(info->fork[philo->right]));
+	pthread_mutex_lock(&info->meal_mut);
+	philo->meal_eaten++;
+	pthread_mutex_unlock(&info->meal_mut);
 }
 
 void	dis_death(t_info *info, int i, int *death)
@@ -37,14 +40,12 @@ void	dis_death(t_info *info, int i, int *death)
 	return ;
 }
 
-void	grim_reaper(t_info *info)
+void	grim_reaper(t_info *info, int i, int j)
 {
-	int	i;
-	int	j;
-	int	death;
-	int	is_full;
-	int	eaten;
-	int	last;
+	int			death;
+	int			is_full;
+	int			tmp_meal;
+	long long	tmp_latestmeal;
 
 	death = info->is_dead;
 	is_full = info->full;
@@ -54,9 +55,18 @@ void	grim_reaper(t_info *info)
 		j = 0;
 		while (i < info->nb_philo)
 		{
-			if ((find_time() - info->philo[i].last_meal >= info->time_to_die))
+			pthread_mutex_lock(&info->last_meal_mut);
+			if (info->philo[i].last_meal == 0)
+				tmp_latestmeal = info->philo[i].first_meal;
+			else
+				tmp_latestmeal = info->philo[i].last_meal;
+			pthread_mutex_unlock(&info->last_meal_mut);
+			if ((find_time() - tmp_latestmeal >= info->time_to_die))
 				return (dis_death(info, i, &death));
-			if (info->philo[i].meal_eaten >= info->nb_meal
+			pthread_mutex_lock(&info->meal_mut);
+			tmp_meal = info->philo[i].meal_eaten;
+			pthread_mutex_unlock(&info->meal_mut);
+			if (tmp_meal >= info->nb_meal
 				&& info->nb_meal != -1)
 			{
 				j++;
@@ -86,7 +96,6 @@ static void	*routine(void *param)
 	{
 		cantina(philo);
 		display(info, philo->id, "is sleeping. 😴\n");
-		//ft_usleep(info->time_to_sleep);
 		usleep(info->time_to_sleep * 1000);
 		display(info, philo->id, "is thinking. 🤔\n");
 	}
@@ -103,12 +112,12 @@ int	starter(t_info *info)
 	info->time_start = find_time();
 	while (i < info->nb_philo)
 	{
-		philo[i].last_meal = find_time();
 		 if (pthread_create(&(philo[i].thrd), NULL, routine, &(philo[i])) != 0)
 			return (error(3));
+		philo[i].first_meal = find_time();
 		i++;
 	}
-	grim_reaper(info);
+	grim_reaper(info, 0, 0);
 	usleep(WAITING_TIME);
 	i = 0;
 	while (i < info->nb_philo)
