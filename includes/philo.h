@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:38:24 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/22 18:26:09 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/25 15:46:16 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,5 +69,6 @@ long long int	find_time(void);
 void			ft_usleep(long long int time);
 void			display(t_info *info, int id, char *act);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
+void			grim_reaper(t_info *info, int i, int j);
 
 #endif

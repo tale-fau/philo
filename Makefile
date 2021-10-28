@@ -6,7 +6,7 @@
 #    By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/14 11:47:06 by tale-fau          #+#    #+#              #
-#    Updated: 2021/10/22 18:51:16 by tale-fau         ###   ########.fr        #
+#    Updated: 2021/10/28 14:09:32 by tale-fau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRCS            =	$(SRCS_PATH)/errors.c \
 						$(SRCS_PATH)/ft_putnbr_fd.c \
 						$(SRCS_PATH)/ft_putstr_fd.c \
 						$(SRCS_PATH)/time.c \
-						$(SRCS_PATH)/ft_strncmp.c
+						$(SRCS_PATH)/ft_strncmp.c \
+						$(SRCS_PATH)/death.c
 
 INCLUDES_DIR     =       ./includes/
 
@@ -37,7 +38,7 @@ OBJS            =       ${SRCS:.c=.o}
 
 RM          =       rm -rf
 
-FLAGS       =       -Wall -Wextra -Werror -pthread #-g -fsanitize=address
+FLAGS       =       -Wall -Wextra -Werror -pthread -g -fsanitize=address
 
 .c.o:
 					@${CC} ${FLAGS} -I${INCLUDES_DIR} -c $< -o ${<:.c=.o}
