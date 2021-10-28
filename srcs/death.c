@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 15:46:31 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/28 14:00:40 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/28 15:02:04 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ long long	assign_tmplatestmeal(t_info *info, int i)
 
 void	dis_death(t_info *info, int i)
 {
-	display(info, i, "\033[0;31mdied. 💀\n\033[0;37m");
+	display(info, i, "died.\n");
 	info->is_dead = TRUE;
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/15 11:54:21 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/15 13:16:34 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/28 14:47:08 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_usleep(long long time)
 	{
 		if (find_time() - ret >= time)
 			break ;
-		usleep(10);
+		usleep(200);
 	}
 }
 

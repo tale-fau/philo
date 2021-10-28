@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 15:08:31 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/28 14:03:32 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/10/28 15:00:49 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	cantina(t_philo *philo)
 
 	info = philo->info;
 	pthread_mutex_lock(&(info->fork[philo->left]));
-	display(info, philo->id, "has taken a fork. 1️⃣\n");
+	display(info, philo->id, "has taken a fork.\n");
 	pthread_mutex_lock(&(info->fork[philo->right]));
-	display(info, philo->id, "has taken a fork. 2️⃣\n");
+	display(info, philo->id, "has taken a fork.\n");
 	philo->last_meal = find_time();
-	display(info, philo->id, "is eating. 🍝\n");
+	display(info, philo->id, "is eating.\n");
 	ft_usleep(info->time_to_eat);
 	pthread_mutex_unlock(&(info->fork[philo->left]));
 	pthread_mutex_unlock(&(info->fork[philo->right]));
@@ -43,9 +43,9 @@ static void	*routine(void *param)
 	while (death == FALSE || philo->meal_eaten <= info->nb_meal)
 	{
 		cantina(philo);
-		display(info, philo->id, "is sleeping. 😴\n");
+		display(info, philo->id, "is sleeping.\n");
 		ft_usleep(info->time_to_sleep);
-		display(info, philo->id, "is thinking. 🤔\n");
+		display(info, philo->id, "is thinking.\n");
 	}
 	return (TRUE);
 }
@@ -66,7 +66,7 @@ int	starter(t_info *info)
 		i++;
 	}
 	grim_reaper(info, 0, 0);
-	usleep(WAITING_TIME);
+	usleep(LONG_WAITING_TIME);
 	i = 0;
 	while (i < info->nb_philo)
 	{
