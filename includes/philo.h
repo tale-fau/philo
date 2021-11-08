@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 11:38:24 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/28 15:00:48 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/11/07 15:31:31 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,12 @@
 # define FALSE 1
 # define TRUE 0
 # define MAX_PHILOSOPHERS 200
-# define NO_MAX_MEAL -1
+# define MIN_PHILOSOPHERS 1
+# define NO_MAX_MEAL -42
+# define ERROR -1
 # define WAITING_TIME 1500
-# define LONG_WAITING_TIME 15000
+# define MID_WAITING_TIME 15000
+# define LONG_WAITING_TIME 1500000
 
 typedef struct s_philo
 {
@@ -36,6 +39,7 @@ typedef struct s_philo
 	int				meal_eaten;
 	long long		first_meal;
 	long long		last_meal;
+	pthread_mutex_t	meal_eaten_mut;
 	struct s_info	*info;
 }	t_philo;
 
@@ -50,9 +54,9 @@ typedef struct s_info
 	int				is_dead;
 	long long		time_start;
 	pthread_mutex_t	writing;
+	pthread_mutex_t	is_dead_mut;
 	pthread_mutex_t	last_meal_mut;
-	pthread_mutex_t	dead_mut;
-	pthread_mutex_t	meal_mut;
+	pthread_mutex_t	full_mut;
 	pthread_mutex_t	fork[200];
 	t_philo			philo[200];
 }	t_info;
@@ -67,8 +71,13 @@ void			ft_putnbr_fd(int n, int fd);
 void			ft_putstr_fd(char *s, int fd);
 long long int	find_time(void);
 void			ft_usleep(long long int time);
-void			display(t_info *info, int id, char *act);
+void			display(t_info *info, int id, char *act, int size);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
-void			grim_reaper(t_info *info, int i, int j);
+void			grim_reaper(t_info *info, int i, int j, long long tmp);
+int				thrd_maker(t_info *info);
+int				mutex_destroyer(t_info *info);
+void			cantina(t_philo *philo);
+void			loop(t_info *info, t_philo *philo);
+char			*skip_zero(char *str);
 
 #endif

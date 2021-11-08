@@ -6,7 +6,7 @@
 /*   By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/14 12:08:25 by tale-fau          #+#    #+#             */
-/*   Updated: 2021/10/22 17:29:52 by tale-fau         ###   ########.fr       */
+/*   Updated: 2021/11/05 14:50:32 by tale-fau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@ int	mutex_init(t_info *info)
 {
 	if (pthread_mutex_init(&(info->writing), NULL) != 0)
 		return (error(4));
-	if (pthread_mutex_init(&(info->dead_mut), NULL) != 0)
-		return (error(4));
-	if (pthread_mutex_init(&(info->meal_mut), NULL) != 0)
-		return (error(4));
 	if (pthread_mutex_init(&(info->last_meal_mut), NULL) != 0)
+		return (error(4));
+	if (pthread_mutex_init(&(info->is_dead_mut), NULL) != 0)
+		return (error(4));
+	if (pthread_mutex_init(&(info->full_mut), NULL) != 0)
 		return (error(4));
 	return (TRUE);
 }
@@ -33,6 +33,8 @@ int	init(t_info *info)
 	while (i < info->nb_philo)
 	{
 		if (pthread_mutex_init(&(info->fork[i]), NULL) != 0)
+			return (error(4));
+		if (pthread_mutex_init(&(info->philo[i].meal_eaten_mut), NULL) != 0)
 			return (error(4));
 		info->philo[i].id = i;
 		info->philo[i].left = i;

@@ -6,15 +6,13 @@
 #    By: tale-fau <tale-fau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/14 11:47:06 by tale-fau          #+#    #+#              #
-#    Updated: 2021/10/28 14:09:32 by tale-fau         ###   ########.fr        #
+#    Updated: 2021/11/08 16:28:43 by tale-fau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	        =		philo
 
 SRCS_PATH		=		./srcs
-
-SRCS_NAME		=		main.c errors.c is_digit.c parsing.c ft_atoi.c starter.c
 
 SRCS            =	$(SRCS_PATH)/errors.c \
 						$(SRCS_PATH)/ft_atoi.c \
@@ -28,7 +26,8 @@ SRCS            =	$(SRCS_PATH)/errors.c \
 						$(SRCS_PATH)/ft_putstr_fd.c \
 						$(SRCS_PATH)/time.c \
 						$(SRCS_PATH)/ft_strncmp.c \
-						$(SRCS_PATH)/death.c
+						$(SRCS_PATH)/death.c \
+						$(SRCS_PATH)/utils.c 
 
 INCLUDES_DIR     =       ./includes/
 
@@ -55,7 +54,7 @@ ${NAME}:		${OBJS}
 						@echo "\033[1;35m"
 						@cat .train.txt
 						@echo "\033[1;37m"
-						@echo "\ntchou tchou ;) c'est partit pour Philosophers !! Embarquement immédiat :D"
+						@echo "\ntchou tchou ;) c'est parti pour Philosophers !! Embarquement immédiat :D"
 
 clean:
 						@${RM} ${OBJS} ${OBJS_B}
